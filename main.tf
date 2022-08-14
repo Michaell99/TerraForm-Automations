@@ -60,7 +60,7 @@ resource "aws_launch_configuration" "web" {
 resource "aws_autoscaling_group" "web"{
   name = "ASG-${aws_launch_configuration.web.name}"
   launch_configuration = aws_launch_configuration.web.name
-  min_size = 1
+  min_size = 3
   max_size = 3
   min_elb_capacity =3
   health_check_type = "ELB"
@@ -95,8 +95,8 @@ resource "aws_elb" "web"{
     instance_protocol = "http"
   }
   health_check {
-    healthy_threshold = 1
-    unhealthy_threshold = 0
+    healthy_threshold = 2
+    unhealthy_threshold = 2
     timeout = 3
     target = "HTTP:80/"
     interval = 10
